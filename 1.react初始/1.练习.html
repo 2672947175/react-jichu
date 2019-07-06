@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+<!-- 1.创建DOM 元素 -->
+<div id="App"></div>
+
+<script>
+    // 2.创建公共模块
+    class component {
+        // 2.1 初始化
+        constructor(){
+            this.oElbtn = ''
+        }
+        // 2.2 创建元素
+        renderDom(string){
+            var div = document.createElement('div')
+            div.innerHTML=string
+            return div
+        }
+        // 2.3 修改Dom 元素
+        onChangage(){
+            this.setState({
+                isLike:!this.data.isLike
+            })
+        }
+        // 2.4 设置状态改变
+        setState(newState={}){
+            this.data = newState
+            // 存储旧值
+            var oldEl = this.oElbtn;
+            // 生成新的
+            var newEl = this._render()
+            this.changeRender(newEl,oldEl)
+        }
+        // 设置私有属性
+        _render(reda){
+            this.oElbtn = this.renderDom(this.render())
+             // 点击事件
+            this.oElbtn.addEventListener('click',this.onChangage.bind(this))
+            return this.oElbtn
+        }
+
+    }
+    // 2.使用class类 包装 DOM 元素
+    class  FDoBtn extends component {
+        // 初始化数据
+        constructor(props={}){
+            super(props)
+            this.props = props
+            this.data={
+                isLike:false
+            }
+            this.DITC = {
+                DZ:'点赞',
+                QXZ:'取消点赞'
+            }
+        }
+        // 2.1把创建好的元素返回
+        render(){
+            return `<button class="link-btn" style="${this.data.isLike?this.props.style1:this.props.style2}">
+                    <span class="link-text">${this.data.isLike?this.DITC.QXZ:this.DITC.DZ}</span>
+                    <span>👍</span>
+                </button>`
+        }
+    }
+ 
+   const mount=(Component, Root)=>{
+        // 第一次在页面中追加
+        Root.appendChild(Component._render())
+        // 出现修改后从新加载这个模块
+        Component.changeRender=(newEl,oldEl)=>{
+            // insertBefore 第一个是新值，第二个是旧值
+            Root.insertBefore(newEl,oldEl)
+            // 删除旧值
+            Root.removeChild(oldEl)
+        }
+   }
+   mount(new FDoBtn({
+       style1:`color:red;background: palegreen;`,
+       style2:`
+       color:pink;
+       background: blue;
+       font-size:20px;
+       `
+
+   }),document.querySelector('#App'))
+
+
+</script>
+
+</body>
+</html>

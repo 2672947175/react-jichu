@@ -1,0 +1,13 @@
+终结：
+1. 组件有两种
+    1.1无转态组件 function 没有this，直接说一个props，不会被实例化；优点是：加载快，渲染快。便于理解，结构清晰
+    1.2 class 组件：继承react.component方法的组件吗，不会被实例化，可以用react所有的api。需要深刻理解的是ES6中的class 相关语法
+2 组件API：
+    2.1创建虚拟Dom：reacte.createElement('原生html标配‘，{props},[内容，子元素])
+    2.2this。props.children:隐式渲染穿入到父组件中的字组件集合，是一个数组
+3. 顶级API
+    3.1 React.Children:用来遍历处理this.props.children,显示的渲染，并且对我门每一个传入的子元素中的处理。语法：React.Children.map(this.props.children,(item,index)=>{return item})
+    3.2React.cloneElement(this.props.children,(item,index)=>{return item})
+
+4. jsx
+    

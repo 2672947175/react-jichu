@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 90%;
+            margin: 0 auto;
+        }
+        .colorRed{
+            width: 100%;
+            line-height: 100px;
+            font-size: 30px;
+            text-align: center;
+            background:palegreen;
+            color: orangered;
+        }
+        .mins{
+            display: flex;
+        }
+        .mins .left,.mins .right{
+            flex:1;
+            text-align: center;
+            line-height: 400px;
+            background: chocolate;
+            margin: 10px;
+        }
+        .mins .right{
+            background: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.根元素 -->
+    <div id="App"></div>
+    <!-- 2.引入js依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <!-- script标签一定要加type类型 --text/babel-- -->
+    <script type="text/babel">
+        // 3.存储创建的dom 方法
+        var E = React.createElement;
+        // 4创建Heder 组件
+        function Header({title}) {
+            return (
+                E('header',
+                   {className:'colorRed'},
+                   `${title}`
+                ) 
+            )
+        }
+        // 5再次穿件一个Main组件
+        function Main ({leftText}){
+            return (
+                E('main',{className:'left'},`${leftText}`)
+            )
+        }
+       
+        // 7.创建一个Footer
+        function Footer ({rightText}){
+            
+            return (
+                E('footer',{className:'right'},`${rightText}`)
+            )
+        }
+        // 6.内容入口拼接组件-模板
+        function Content({leftText,rightText}){
+                return (
+                    // 4.1只要是数组集合的方法嵌套那么必须在嵌套的标签加key
+                    E('div',{className:'mins'},[
+                        <Main key="13" leftText={leftText} />,
+                        <Footer key='14'rightText={rightText} />
+                    ])
+                ) 
+            }
+
+        // 7.入口组件-模板
+        function Home(){
+            return (
+                // 4.1只要是数组集合的方法嵌套那么必须在嵌套的标签加key
+                E('div',{className:"box"},[
+                    <Header key="12" title='我是头部' />,
+                    <Content key="13" leftText='我是左边' rightText='我是右边'/>
+                ])
+            ) 
+        }
+        // 5.挂载 把这个集合挂载
+        ReactDOM.render(<Home/>,document.getElementById('App'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {}
+    </style>
+</head>
+
+<body>
+    <!-- 1.根元素 -->
+    <div id="App"></div>
+    <!-- 2.引入js依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <!-- script标签一定要加type类型 --text/babel-- -->
+    <script type="text/babel">
+        // 3.存储创建的dom 方法
+        var E = React.createElement;
+        // 4创建ComA 组件
+        function ComA() {
+            // 3.创建虚拟DOM
+            return (
+                // 3.1 React.createElement() 接受三个参数
+                // 第一个参数：标签的类型(tagType)
+                // 第二个参数： 属性，事件（是一个对象）
+                // 第三个参数：内容/子组件
+             
+                E('mark',
+                   null,
+                   '*asdsdd'
+                ) 
+            )
+        }
+        // 5再次穿件一个ComB组件
+        function ComB ({fontSize,number}){
+            return (
+                E('p',{style:{fontSize:fontSize||'80px'},},`今天天气${number}度`)
+            )
+        }
+       
+        // 7.创建一个按钮组件
+        function BtnDom (){
+            var back=()=>{
+                console.log(1)
+            }
+            return (
+                E('button',{onClick:back},'点击')
+            )
+        }
+
+
+
+        // 6.入口组件-模板
+        function Home(){
+            return (
+                // 4.1只要是数组集合的方法嵌套那么必须在嵌套的标签加key
+                E('div',null,[
+                    <ComA key="12"/>,
+                    <ComB key="13" number='20' fontSize="60px"/>,
+                    <BtnDom key='14'/>
+                ])
+            ) 
+        }
+        // 5.挂载 把这个集合挂载
+        ReactDOM.render(<Home/>,document.getElementById('App'))
+    </script>
+</body>
+
+</html>

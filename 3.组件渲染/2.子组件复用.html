@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* 头部 */
+        .header{
+            line-height: 100px;
+            background: pink;
+            text-align: center;
+            color: blueviolet;
+            font-size: 20px;
+        }
+        /* 内容部分 */
+        .main{
+            margin-top:30px;
+            overflow: hidden;
+        }
+        .leftBox{
+            background: greenyellow;
+            width: 60%;
+            height: 500px;
+            float: left;
+        }
+        .rightBox{
+            background: green;
+            width: 30%;
+            height: 500px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建根标签 -->
+    <div id="App"></div>
+    <!-- 引入依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1.头部
+        function Header() {
+            return (
+                React.createElement('header',{className:'header'},'我是头部')
+            )
+        }
+
+          // 2.1 内容区里的子组件
+          function Child(props={}) {
+            return (
+                React.createElement('div',{className:props.class},props.content)
+            )
+        }
+        // 2.内容展示容器
+        class Main extends React.Component {
+            // constructor & props 是es6 class 自带的
+            constructor(props){
+                super(props)
+            }
+            // render 方法是react封装的不可以该
+            render(){
+                return React.createElement('main',{className:'main'},[
+                    <Child key='1' class="leftBox" content='左边区域' />,
+                    <Child key='2' class="rightBox" content='右边区域' />,
+                ])
+            }
+        }
+      
+        // 3.模板
+        function Html(){
+            return (
+                // [<Header key='1'/>,
+                // <Main key='2'/>]
+                // 取消div 
+                <React.Fragment>
+                    <Header />
+                    <Main />
+                </React.Fragment>
+
+            )
+        }
+
+        ReactDOM.render(<Html/>,document.getElementById('App'))
+
+
+    </script>
+</body>
+</html>

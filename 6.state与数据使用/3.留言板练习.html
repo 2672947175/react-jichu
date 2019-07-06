@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 60%;
+            margin: 0 auto;
+            background: blue;
+            overflow: hidden;
+        }
+        .const{
+            width: 70%;
+            margin: 20px auto;
+
+        }
+        .inputbox input{
+            width: 100%;
+            line-height: 40px;
+            font-size: 18px;
+            background: greenyellow;
+            color: white;
+            padding:  5px 20px;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            outline: none;
+        }
+        .buttonbox{
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .buttonbox button{
+            padding: 10px 20px;
+            background: red;
+            color:white;
+            border: 1px solid #000;
+            float: right;
+        }
+        .neibox{
+            border: 1px solid #000;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #fff;
+            background: blueviolet;
+            margin: 20px 0;
+        }
+       .flex{
+           display: flex;
+       }
+       .justBetween{
+           justify-content: space-between;
+
+       }
+
+        .textbox{
+            border: 1px solid #000;
+            padding:  10px 15px;
+            background: gold;
+            margin: 10px 0;
+        }
+        .textbox span{
+            color: red;
+        }
+        .itembox{
+            padding:5px 10px;
+        }
+        .shang{
+            padding:5px 10px;
+        }
+        .center{
+            text-align: center;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <div id="App"></div>
+    <!-- 引入插件 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <!-- 引入模板 -->
+    <script src="./3.luiyanjs/Header.js" type="text/babel"></script>
+    <script src="./3.luiyanjs/Button.js" type="text/babel"></script>
+    <script src="./3.luiyanjs/Xinxi.js" type="text/babel"></script>
+    <script src="./3.luiyanjs/Message.js" type="text/babel"></script>
+    <script src="./3.luiyanjs/Html.js" type="text/babel"></script>
+    <script type="text/babel">
+        ReactDOM.render(<Html/>,document.getElementById('App'))
+    </script>
+
+
+</body>
+</html>

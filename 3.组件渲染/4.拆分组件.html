@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* 头部 */
+        .header{
+            line-height: 100px;
+            background: pink;
+            text-align: center;
+            color: blueviolet;
+            font-size: 20px;
+        }
+        /* 内容部分 */
+        .main{
+            margin-top:30px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .leftBox{
+            background: greenyellow;
+            width: 60%;
+            height: 500px;
+            float: left;
+        }
+        .rightBox{
+            background: green;
+            width: 30%;
+            height: 500px;
+            float: right;
+        }
+        /* footer 底部 */
+        .footer{
+            border: 1px solid rebeccapurple;
+            margin-top: 40px;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建根标签 -->
+    <div id="App"></div>
+    <!-- 引入依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <!-- 引入自定义组建 -->
+    <script src="./4chaifen/Header.js" type="text/babel"></script>
+    <script src="./4chaifen/Main_child.js" type="text/babel"></script>
+    <script src="./4chaifen/Main.js" type="text/babel"></script>
+    <script src="./4chaifen/Footer_child.js" type="text/babel"></script>
+    <script src="./4chaifen/Footer.js" type="text/babel"></script>
+    <script src="./4chaifen/Html.js" type="text/babel"></script>
+
+    <script type="text/babel">
+        // 挂载
+        ReactDOM.render(<Html/>,document.getElementById('App'))
+    </script>
+</body>
+</html>

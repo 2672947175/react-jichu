@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .child{
+            border: 1px solid greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建根标签 -->
+    <div id="App"></div>
+    <!-- 引入依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1. jsx 语法
+        // 2. 内容组件
+        function Child(props) {
+            const hahclick=()=>{
+                console.log('asds')
+            }
+            return (
+                <div onClick={hahclick}
+                  className={props.className}
+                 style={{'color':props.color}}
+                >
+                    {props.conten}
+                </div>
+            )
+        }
+        // 3. 模板组件
+        function Home(params){
+            const style={
+                color:'red',
+                fontSize:'20px',
+                className:'child'
+            }
+            // 使用方法有俩中 1.同过在<Home>标签中<Child conten='我是内容'/> 
+            // 在纸组件模板中是{params.children} 引入
+            return (
+                <main >
+                <h1>欢迎你！</h1>
+                {params.children}
+                <Child conten='我是hahah' {...style}/>
+                </main>
+
+            )
+        }
+        
+        ReactDOM.render(<Home >
+
+            <Child conten='我是内容' color="red"/>
+            </Home>,document.getElementById('App'))
+
+
+    </script>
+</body>
+</html>

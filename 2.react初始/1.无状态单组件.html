@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1.根元素 -->
+    <div id="App"></div>
+    <!-- 2.引入js依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <!-- script标签一定要加type类型 --text/babel-- -->
+    <script type="text/babel">
+        // 4.组件的命名：必须是大写开头，因为如果小写，react会从原生DOM库去找，用大写开头是找我们的 
+        function ComA() {
+            // 静态组件|无状态组件
+            // 它只接受 props 
+            // 优点：不需要实例化 不需要new，渲染快，简单，阅读方便
+            // 缺点：没哟this，只有一个props，其他的功能都没有
+            // 总结：只能是写我们的DOM
+            // 适用于：纯静态展示部分的页面（功能）开发
+
+            // 3.创建虚拟DOM
+            var E = React.createElement;
+            return (
+                // 3.1 React.createElement() 接受三个参数
+                // 第一个参数：标签的类型(tagType)
+                // 第二个参数： 属性，事件（是一个对象）
+                // 第三个参数：内容/子组件
+                // E("h1",null,[
+                //     E('div',{style:{color:'red'},onClick:()=>{console.log('ass')},key:12},"我是span"),
+                //     E('div',{style:{color:'pink'},onClick:()=>{console.log('ass')},key:13},"我是span1"),
+                //     E('div',{style:{color:'#9fa6f'},onClick:()=>{console.log('ass')},key:14},"我是span2"),
+
+                // ])
+                E('div',null,[
+                    E(
+                        'h1',
+                        {style:{color:'pink'},onClick:()=>{console.log('aass')},key:1},
+                        [
+                            '我是p',
+                            E('p',{key:1,style:{color:'red'}},'我是p')
+                        ]
+                    )
+                ])
+            )
+        }
+
+        ReactDOM.render(<ComA />,App,)
+    </script>
+</body>
+</html>

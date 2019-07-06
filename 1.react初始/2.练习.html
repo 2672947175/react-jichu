@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .app {
+            color: aqua;
+            background: palevioletred;
+        }
+
+        .aps {
+            color: peru;
+            background: palegreen;
+        }
+
+        .aa {
+            font-size: 20px;
+        }
+        .boxs{
+            width: 200px;
+            line-height: 100px;
+            background: orange;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.创建Dom 元素 -->
+    <div id="App"></div>
+
+    <script>
+        // 2.创建公共的组件
+        class Component {
+            constructor() {
+                this.elBtn = ""
+            }
+            // 2.1 创建DOM容器
+            rendreDomFremString(string) {
+                let div = document.createElement('div')
+                div.innerHTML = string
+                return div
+            }
+            // 2.2 私有方法生成Dom 元素，并且绑定事件
+            _rendre() {
+                // 生成Dom 元素
+                this.elBtn = this.rendreDomFremString(this.rendre())
+                // 绑定事件
+                this.elBtn.addEventListener('click', this.onchangage.bind(this))
+                return this.elBtn
+            }
+            // 2.3 设置状态进行Dom改变
+            setState(newData = {}) {
+                this.data = newData
+                var oldEl = this.elBtn
+                var newEl = this._rendre()
+                this.changeRender(newEl, oldEl)
+
+            }
+            // 2.4 修改Dom元素
+            onchangage() {
+                this.setState({
+                    isLike: !this.data.isLike
+                })
+            }
+        }
+
+        // 3. 使用class 包装DOM 元素
+        class FDomBtn extends Component {
+            constructor(props={}) {
+                super(props)
+                this.props = props
+                this.data = {
+                    isLike: false
+                }
+                
+            }
+            rendre() {
+                console.log(this)
+                return `
+                    <button class="${this.data.isLike ? 'aps' : 'app'} aa">
+                        <span>${this.data.isLike ? '取消点赞' : '点赞'}</span>
+                        <span>👍</span>
+                    </button>`
+            }
+        }
+        class BoxDOM extends Component {
+            constructor(props={}) {
+                super(props)
+                this.props = props
+                this.data = {
+                    isLike: false
+                }
+                
+            }
+            rendre() {
+               console.log(this)
+                return `
+                    <div class="boxs">
+                        shahah
+                    </div>
+                    `
+            }
+        }
+        const mount = (app, component) => {
+            app.appendChild(component._rendre())
+            component.changeRender = (newEl, oldEl) => {
+                app.insertBefore(newEl, oldEl)
+                app.removeChild(oldEl)
+            }
+        }
+
+
+        mount(App, new FDomBtn())
+        mount(App,new BoxDOM())
+    </script>
+</body>
+
+</html>
+
+
+
+<!-- 
+    super 有两种方法 1.函数 2.对象 一般使用函数
+
+ -->
+
+ <!-- ps:80 -->

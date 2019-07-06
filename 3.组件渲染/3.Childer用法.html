@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* 头部 */
+        .header{
+            line-height: 100px;
+            background: pink;
+            text-align: center;
+            color: blueviolet;
+            font-size: 20px;
+        }
+        /* 内容部分 */
+        .main{
+            margin-top:30px;
+            overflow: hidden;
+        }
+        .leftBox{
+            background: greenyellow;
+            width: 60%;
+            height: 500px;
+            float: left;
+        }
+        .rightBox{
+            background: green;
+            width: 30%;
+            height: 500px;
+            float: right;
+        }
+        /* footer 底部 */
+        .footer{
+            border: 1px solid rebeccapurple;
+            margin-top: 40px;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建根标签 -->
+    <div id="App"></div>
+    <!-- 引入依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <script type="text/babel">
+        // 1.头部
+        function Header() {
+            return (
+                React.createElement('header',{className:'header'},'我是头部')
+            )
+        }
+
+          // 2.1 内容区里的子组件
+          function Child(props={}) {
+            return (
+                React.createElement('div',{className:props.class},props.content)
+            )
+        }
+        // 2.内容展示容器 React.Component 顶级API 
+        class Main extends React.Component {
+            // constructor & props 是es6 class 自带的
+            constructor(props){
+                super(props)
+            }
+            // render 方法是react封装的不可以该
+            render(){
+                return React.createElement('main',{className:'main'},[
+                    <Child key='1' class="leftBox" content='左边区域' />,
+                    <Child key='2' class="rightBox" content='右边区域' />,
+                ])
+            }
+        }
+      
+        // 3.模板
+        function Html(){
+            return (
+                // [<Header key='1'/>,
+                // <Main key='2'/>]
+                // 取消div 
+                <React.Fragment>
+                    <Header />
+                    <Main />
+                </React.Fragment>
+
+            )
+        }
+        // 4.新添加一个footer组件
+        const {Component} = React
+        function Footer1(props={}) {
+            return (
+                // *默认克隆添加到这里的props 是浅层合并，需要我们处理成深层的
+                React.createElement('li',{...props},props.text)
+            )
+        }
+        class Footer extends Component {
+            constructor(props){
+                super(props)
+            }
+            render(){
+                console.log(this.props)
+                return (
+                    // 在react里面如果在实际的标签中使用js 要使用对象包起来
+                    // React.Fragment 解决组件与组相邻的报错和多余的div
+                    <React.Fragment>
+                    {
+                        // this.props.children 是隐式渲染子元素
+                    }
+                    {
+                        //this.props.children
+                    }
+                    {
+                        // 显示渲染子元素 reacte 顶级
+                        React.Children.map(this.props.children,(item,index)=>{
+                            // React.cloneElement() 顶级API 用来克隆一个元素
+                            /*
+                                 React.cloneElement(el,props,child)
+                                 第一个参数是元素，也可以是react元素，也可以是原生dom元素
+                                 第二个参数是属性，也就是Props
+                                 第三个参数可选，一般增加子元素节点的
+                            */ 
+                            console.log(item)
+                            const dom = React.cloneElement(item,{
+                                key:999,
+                                text:'我是新的',
+                                style:{color:'red'},
+                                onClick:()=>{
+                                    console.log(index)
+                                }
+                            })
+                            console.log(dom)
+
+                            return  dom
+                        })
+                    }
+                    </React.Fragment>
+
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <Footer>
+               <Footer1 text="已收到" />
+               <Footer1 text="撒大声地所多" />
+            </Footer>,
+            document.getElementById('App'))
+
+
+    </script>
+</body>
+</html>

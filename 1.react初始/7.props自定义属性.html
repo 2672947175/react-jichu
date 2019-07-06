@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1. DOM结构 -->
+    <div id="App" ></div>
+
+    <script>
+        // 4.公共模块 Component
+        class Component {
+            constructor() {
+                // 4.Dom 元素容器
+                this.elBtn = '';
+            }
+            // 2.5 修改Dom
+            onChenges() {
+                this.setState({
+                    isLiked: !this.state.isLiked
+                })
+            }
+            // 2.6 设置state状态方法
+            setState(newState = {}) {
+                this.state = newState
+                // 2.7缓存我们旧的Dom 
+                var oldEl = this.elBtn
+                // 2.8生成一个新的Dom
+                var newEl = this._render()
+                // 2.9获取父级元素
+                if (this.changeRender) {
+                    this.changeRender(oldEl, newEl)
+                }
+            }
+            // 2.1生成Dom元素方法
+            renderDomFromString(string) {
+                var div = document.createElement('div');
+                div.innerHTML = string
+                return div
+            };
+            // 4.7私有方法生成Dom 元素，并且绑定事件
+            _render() {
+                // 2.3绑定事件
+                this.elBtn = this.renderDomFromString(this.render())
+
+                this.elBtn.addEventListener('click', this.onChenges.bind(this))
+
+                // 返回创建的div
+                return this.elBtn
+            }
+        }
+
+        // 2.使用class 包装DOM 元素
+        class FDomBTn extends Component {
+            // 2.4初始状态数据
+            constructor(props={}) {
+                // 4.6在子集类中必须使用super方法去实力化我们的父级 必须在实例化得顶层调用
+                super(props)
+                this.props = props
+                this.state = {
+                    isLiked: false
+                }
+                // DICT 字典 里面都是大写 就是常量
+                this.DICT = {
+                    DZ:'点赞',
+                    QXZ:'取消点赞'
+                }
+            };
+            render() {
+                // 根据传入的props 属性来动态渲染我们的dom 样式，使用state改变我们的dom内容
+                return `
+                <button class="link-btn" style="color:${this.state.isLiked?this.props.colorred:this.props.colorpink}; background:${this.props.bgcolor};">
+                    <span class="link-text">${this.state.isLiked ? this.DICT.QXZ  : this.DICT.DZ}</span>
+                    <span>👍</span>
+                </button>
+                `
+            }
+        };
+        // 3.挂载-渲染
+        const mount = (Component, Root) => {
+            // 3.3 第一次挂载
+            Root.appendChild(Component._render())
+            // 3.4跟新Dom
+            Component.changeRender = (oldEl, newEl) => {
+                Root.insertBefore(newEl, oldEl);
+                Root.removeChild(oldEl)
+            }
+        }
+        //    测试
+        mount(new FDomBTn({colorred:'red',colorpink:'pink',bgcolor:'#19f92fa'}),document.getElementById('App'))
+
+    </script>
+</body>
+
+</html>

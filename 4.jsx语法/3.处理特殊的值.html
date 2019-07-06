@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .child{
+            border: 1px solid greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <!-- 创建根标签 -->
+    <div id="App"></div>
+    <!-- 引入依赖 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <script type="text/babel">
+        function Child(){
+
+        }
+        // home 组件
+        function Home(props){
+            /**
+             * 布尔类型，null 以及 undefined 将会忽略，想使用他需要转换成字符串0也会渲染，所以0不在代表false
+             * **/
+            let handleClick = ()=>{
+                console.log('sddsd')
+            }
+            return (
+                <div>
+                   {String(false) }
+                   {0?'ok':'不'}
+                   <div onClick={handleClick}>触发事件</div>
+                </div>
+            )
+        }
+        
+        ReactDOM.render(<Home >
+          
+        </Home>,document.getElementById('App'))
+        var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      speed:2500,
+      
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    </script>
+</body>
+</html>

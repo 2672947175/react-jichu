@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 1. DOM结构 -->
+    <div id="App"></div>
+
+    <script>
+        // 2.使用class 包装DOM 元素
+        class FDomBTn {
+            // 2.4初始状态数据
+            constructor(){
+                this.state = {
+                    isLiked:false
+                }
+                // DITC 字典 里面都是大写 就是常量
+                this.DITC = {
+                    DZ:'点赞',
+                    QXZ:'取消点赞'
+                }
+            };
+            // 2.5 修改Dom
+            onChenges(){
+                console.log('aa3')
+               this.state.isLiked=!this.state.isLiked
+               if(this.state.isLiked){
+                    document.querySelector('.link-text').innerHTML=this.DITC.QXZ
+               }else{
+                    document.querySelector('.link-text').innerHTML=this.DITC.DZ
+               }
+            }
+            // 2.1生成Dom元素方法
+            renderDomFromString(string){
+                var div = document.createElement('div');
+                div.innerHTML=string
+                return div
+            };
+            render(){
+                // 2.2 调用我们真实dom 元素
+                var elBtn =this.renderDomFromString(`
+                <button class="link-btn">
+                    <span class="link-text">点赞</span>
+                    <span>👍</span>
+                </button>
+                `);
+                // 2.3绑定事件
+                elBtn.addEventListener('click',this.onChenges.bind(this));
+                // 返回创建的div
+                return elBtn
+            }
+        };
+        // 3.挂载-渲染
+        var oFdomBtn = new FDomBTn();
+        var oElApp = document.getElementById('App');
+        // 3.2把创建好的div 追加道页面中
+        oElApp.appendChild(oFdomBtn.render());
+        
+    </script>
+</body>
+</html>

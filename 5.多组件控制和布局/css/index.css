@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.fleft{
+    float: left;
+}
+.fright {
+    float: right;
+}
+.flex {
+   display: flex; 
+}
+.justBetween {
+    justify-content: space-between;
+}
+.clear:after{
+    clear: both;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+}
+.border {
+    border: 1px solid #000;
+}
+.center{
+    text-align: center;
+    
+}
+ul li {
+    list-style: none;
+}
+.bag{
+    background: darkblue;
+}
+.wcor{
+    color: white;
+}
+.nei{
+    padding: 10px 20px;
+    
+}
+.nei+.nei{
+    margin-left: 15px;
+}
+.seract-right{
+    background: orchid;
+    padding: 0 20px;
+    box-sizing: border-box; 
+    margin-right: 20px;
+}
+.top{
+    margin-top: 20px;
+}
+.seract-left input{
+    margin: 5px 20px;
+    width: 200px;
+    line-height: 30px;
+}
+.seract-left button{
+    width: 100px;
+    line-height: 30px;
+    color: #fff;
+    background: greenyellow;
+}
+/* hot-box 样式 */
+.hot-box{
+    overflow: hidden;
+}
+.hot-box .texts{
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: red;
+    text-align: center;
+    /* margin: 10px 0; */
+}
+.ctor-top{
+    width: 90%;
+    margin: 0 auto;
+    background: greenyellow;
+}
+.ctor-top li{
+    background: blueviolet;
+    margin: 5px 20px;
+    padding: 5px 10px;
+}
+.ctor-box{
+    width: 90%;
+    margin: 20px auto;
+    /* background: pink; */
+}

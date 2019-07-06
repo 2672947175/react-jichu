@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 80%;
+            margin: 0 auto;
+            background: greenyellow;
+            overflow: hidden;
+        }
+        .header{
+            width: 90%;
+            margin: 10px auto;
+            background: blue;
+            display: flex;
+            padding: 0 20px;
+            
+        }
+        .boxa{
+            background: red;
+            border: 1px solid #000;
+            padding: 10px 20px;
+            color: #fff;
+            margin: 20px 10px;
+        }
+        .boxt{
+            width: 20%;
+            height: 200px;
+            border: 1px solid #000;
+            margin: 20px;
+            text-align: center;
+            color:white;
+        }
+        .footer{
+            width: 100%;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+        .headers{
+            width: 90%;
+            margin: 20px auto;
+            background: blue;
+            padding: 20px 20px ;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 创建根元素 -->
+    <div id="App"></div>
+
+    <!-- 引入插件 -->
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <script>
+     
+    </script>
+    <script type="text/babel">
+        window.onload = function () {
+            
+       
+         // 1 创建一个放内容的小组件
+         function Box (props={}){
+            return (
+                <div className={props.name}>
+                    {props.children||props.txt}
+                </div>
+            )
+        }
+
+        // 2.创建容器组件
+        function Header (props={}){
+            return (
+                <div className={props.name}>
+                    {/*调用小组件*/}
+                    {props.children}
+                </div>
+            )
+        }
+        // 3 第二种写法
+        function Bian (props={}){
+            return (
+                <div className={props.name}>
+                    {React.Children.map(props.children,(item,index)=>{
+                            // 对每一个遍历出来的元素做处理，用来克隆
+                            return item
+                        })}
+                </div>
+            )
+        }
+        // 组件集合
+        function Home (props={}) {
+            return (
+                <div className="box">
+                        {/*复用*/}
+                        <Header name="header">
+                                <Box txt="首页" name="boxa"/>
+                                <Box txt="新闻" name="boxa"/>
+                                <Box txt="产品" name="boxa"/>
+                                <Box txt="关于" name="boxa"/>
+                        </Header>
+                        {/*复用*/}
+                        <Bian name="header">
+                                <Box txt="实际的开始的就是看的就是看到" name="boxt"/>
+                                <Box txt="深刻的历史的抗衰老的的" name="boxt"/>
+                                <Box txt="搓手顿脚山东省领导" name="boxt"/>
+                        </Bian>
+                        {/*复用*/}
+                        <Header name="headers">
+                                <Box txt="联系方式：829898we9we" name="footer"/>
+                                <Box txt="联系人：四大皆空实际的" name="footer"/>
+                        </Header>
+
+                </div>
+            )
+        }
+
+        ReactDOM.render(<Home></Home>,document.getElementById('App'));
+    }
+    </script>
+</body>
+</html>
